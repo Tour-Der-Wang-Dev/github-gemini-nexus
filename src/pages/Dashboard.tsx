@@ -3,8 +3,13 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Github } from 'lucide-react';
+import { Github, GitBranch } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import RepositoryList from '@/components/RepositoryList';
+import AICodeReview from '@/components/AICodeReview';
+import WorkflowAutomation from '@/components/WorkflowAutomation';
+import IssueSummary from '@/components/IssueSummary';
+import PRAnalysis from '@/components/PRAnalysis';
 
 const Dashboard = () => {
   const { toast } = useToast();
@@ -58,8 +63,28 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto py-6">
-      <h1 className="text-3xl font-bold mb-6">แดชบอร์ด</h1>
-      {/* We'll add repository list and analysis components here in the next step */}
+      <header className="mb-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold">แดชบอร์ด GitHub</h1>
+            <p className="text-muted-foreground mt-1">จัดการและวิเคราะห์โปรเจกต์ GitHub ของคุณ</p>
+          </div>
+          <Button variant="outline" className="gap-2">
+            <GitBranch className="h-4 w-4" /> เลือกที่เก็บข้อมูล
+          </Button>
+        </div>
+      </header>
+
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <IssueSummary />
+        <PRAnalysis />
+        <AICodeReview />
+        <WorkflowAutomation />
+      </div>
+
+      <div className="mt-6">
+        <RepositoryList />
+      </div>
     </div>
   );
 };
