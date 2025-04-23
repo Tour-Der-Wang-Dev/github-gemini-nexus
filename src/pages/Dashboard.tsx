@@ -4,8 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Github } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 const Dashboard = () => {
+  const { toast } = useToast();
+  
   const { data: session } = useQuery({
     queryKey: ['session'],
     queryFn: async () => {
@@ -15,13 +18,21 @@ const Dashboard = () => {
   });
 
   const handleGitHubLogin = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: {
-        scopes: 'repo workflow',
-        redirectTo: `${window.location.origin}/dashboard`,
-      },
-    });
+    try {
+      await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+          scopes: 'repo workflow',
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+    } catch (error) {
+      toast({
+        title: 'เกิดข้อผิดพลาด',
+        description: 'ไม่สามารถเชื่อมต่อกับ GitHub ได้ กรุณาลองใหม่อีกครั้ง',
+        variant: 'destructive',
+      });
+    }
   };
 
   if (!session) {
