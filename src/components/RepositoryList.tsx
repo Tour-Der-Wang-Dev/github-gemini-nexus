@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -47,9 +46,8 @@ const RepositoryList = () => {
     },
     retry: 1,
     enabled: true,
-    // Move onError to onSettled for handling errors
-    onSettled: (data, error) => {
-      if (error) {
+    meta: {
+      onError: () => {
         toast({
           title: 'เกิดข้อผิดพลาด',
           description: 'ไม่สามารถดึงข้อมูลที่เก็บข้อมูลจาก GitHub ได้',
