@@ -47,12 +47,15 @@ const RepositoryList = () => {
     },
     retry: 1,
     enabled: true,
-    onError: () => {
-      toast({
-        title: 'เกิดข้อผิดพลาด',
-        description: 'ไม่สามารถดึงข้อมูลที่เก็บข้อมูลจาก GitHub ได้',
-        variant: 'destructive',
-      });
+    // Move onError to onSettled for handling errors
+    onSettled: (data, error) => {
+      if (error) {
+        toast({
+          title: 'เกิดข้อผิดพลาด',
+          description: 'ไม่สามารถดึงข้อมูลที่เก็บข้อมูลจาก GitHub ได้',
+          variant: 'destructive',
+        });
+      }
     }
   });
 

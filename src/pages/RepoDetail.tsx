@@ -65,12 +65,15 @@ const RepoDetail = () => {
     },
     retry: 1,
     enabled: !!repoName,
-    onError: () => {
-      toast({
-        title: 'เกิดข้อผิดพลาด',
-        description: 'ไม่สามารถดึงข้อมูลที่เก็บข้อมูลได้',
-        variant: 'destructive',
-      });
+    // Move onError to onSettled for handling errors
+    onSettled: (data, error) => {
+      if (error) {
+        toast({
+          title: 'เกิดข้อผิดพลาด',
+          description: 'ไม่สามารถดึงข้อมูลที่เก็บข้อมูลได้',
+          variant: 'destructive',
+        });
+      }
     }
   });
 
