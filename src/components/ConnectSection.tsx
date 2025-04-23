@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ConnectSection = () => {
   return (
@@ -16,24 +17,30 @@ const ConnectSection = () => {
           </div>
           
           <div className="max-w-2xl relative z-10">
-            <h2 className="text-3xl font-bold mb-6">Connect Your GitHub Repository</h2>
+            <h2 className="text-3xl font-bold mb-6">เชื่อมต่อที่เก็บข้อมูล GitHub ของคุณ</h2>
             <p className="text-muted-foreground mb-8">
-              Get started with GitHub-Gemini Nexus in minutes. Connect your GitHub 
-              repository and experience the power of AI-assisted development today.
+              เริ่มต้นใช้งาน GitHub-AI Nexus ได้ในไม่กี่นาที เชื่อมต่อที่เก็บข้อมูล GitHub 
+              ของคุณและสัมผัสประสบการณ์การพัฒนาด้วย AI วันนี้
             </p>
             
             <div className="space-y-6">
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="flex items-center gap-2">
-                  <Github size={20} />
-                  <span>Connect GitHub</span>
+                <Button 
+                  size="lg" 
+                  className="flex items-center gap-2"
+                  asChild
+                >
+                  <Link to="/dashboard">
+                    <Github size={20} />
+                    <span>เชื่อมต่อ GitHub</span>
+                  </Link>
                 </Button>
-                <Button size="lg" variant="outline">Learn More</Button>
+                <Button size="lg" variant="outline">เรียนรู้เพิ่มเติม</Button>
               </div>
               
               <p className="text-sm text-muted-foreground">
-                By connecting, you agree to our Terms of Service and Privacy Policy.
-                No sensitive data leaves your environment.
+                การเชื่อมต่อถือว่าคุณยอมรับข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัวของเรา
+                ข้อมูลที่สำคัญจะไม่ถูกส่งออกนอกระบบของคุณ
               </p>
             </div>
           </div>

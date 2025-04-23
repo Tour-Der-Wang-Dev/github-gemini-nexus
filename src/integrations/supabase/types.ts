@@ -9,6 +9,77 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      ai_suggestions: {
+        Row: {
+          applied: boolean | null
+          created_at: string
+          id: string
+          suggestion: string
+          suggestion_type: string
+          workflow_analysis_id: string
+        }
+        Insert: {
+          applied?: boolean | null
+          created_at?: string
+          id?: string
+          suggestion: string
+          suggestion_type: string
+          workflow_analysis_id: string
+        }
+        Update: {
+          applied?: boolean | null
+          created_at?: string
+          id?: string
+          suggestion?: string
+          suggestion_type?: string
+          workflow_analysis_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_suggestions_workflow_analysis_id_fkey"
+            columns: ["workflow_analysis_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_analyses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      github_connections: {
+        Row: {
+          access_token: string
+          avatar_url: string | null
+          created_at: string
+          id: string
+          refresh_token: string | null
+          token_expires_at: string | null
+          updated_at: string
+          user_id: string
+          username: string
+        }
+        Insert: {
+          access_token: string
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id: string
+          username: string
+        }
+        Update: {
+          access_token?: string
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id?: string
+          username?: string
+        }
+        Relationships: []
+      }
       prompts: {
         Row: {
           category: string | null
@@ -38,6 +109,85 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      repositories: {
+        Row: {
+          created_at: string
+          default_branch: string
+          description: string | null
+          full_name: string
+          github_connection_id: string
+          id: string
+          name: string
+          repo_id: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          default_branch: string
+          description?: string | null
+          full_name: string
+          github_connection_id: string
+          id?: string
+          name: string
+          repo_id: string
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          default_branch?: string
+          description?: string | null
+          full_name?: string
+          github_connection_id?: string
+          id?: string
+          name?: string
+          repo_id?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "repositories_github_connection_id_fkey"
+            columns: ["github_connection_id"]
+            isOneToOne: false
+            referencedRelation: "github_connections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_analyses: {
+        Row: {
+          analysis_result: Json
+          created_at: string
+          id: string
+          repository_id: string
+          workflow_file: string
+        }
+        Insert: {
+          analysis_result: Json
+          created_at?: string
+          id?: string
+          repository_id: string
+          workflow_file: string
+        }
+        Update: {
+          analysis_result?: Json
+          created_at?: string
+          id?: string
+          repository_id?: string
+          workflow_file?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_analyses_repository_id_fkey"
+            columns: ["repository_id"]
+            isOneToOne: false
+            referencedRelation: "repositories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       ท่องเที่ยว: {
         Row: {
